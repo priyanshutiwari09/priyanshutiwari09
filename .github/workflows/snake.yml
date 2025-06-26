@@ -2,11 +2,11 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # runs daily
-  workflow_dispatch:
+    - cron: "0 0 * * *"  # Runs every day at midnight UTC
+  workflow_dispatch:     # Allows you to trigger manually
 
 permissions:
-  contents: write  # 👈 THIS is what was missing!
+  contents: write  # Needed to push to the `output` branch
 
 jobs:
   generate:
@@ -21,8 +21,8 @@ jobs:
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake.gif
-          svg_background_color: '#000000'   # Black background
-          color_snake: '#39FF14'            # Neon green snake (customize!)
+          svg_background_color: '#000000'  # Dark black background
+          color_snake: '#39FF14'           # Neon green snake
 
       - name: Push to GitHub
         uses: crazy-max/ghaction-github-pages@v3
@@ -31,3 +31,4 @@ jobs:
           build_dir: dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
